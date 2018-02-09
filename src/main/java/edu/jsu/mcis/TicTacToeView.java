@@ -1,5 +1,6 @@
 package edu.jsu.mcis;
 
+
 public class TicTacToeView {
 
     private TicTacToeModel model;
@@ -17,13 +18,31 @@ public class TicTacToeView {
         /* Print the board to the console (see examples) */
 
         /* INSERT YOUR CODE HERE */
+        // Printing the Column headings
+        System.out.print("  ");
         for(int a = 0; a < model.getWidth(); ++a){
           System.out.print(a);
         }
+        System.out.print("    ");
         System.out.println("\n");
         for(int i = 0; i < model.getWidth(); ++i){
           System.out.print(i + " ");
-          for(int )
+          for(int j = 0; j < model.getWidth(); ++j){
+              if(model.getMark(i, j) == TicTacToeModel.Mark.EMPTY){
+                  System.out.print("-");
+              }
+              else{
+                  System.out.print(model.getMark(i, j));
+              }
+
+
+
+
+
+
+          }
+        System.out.println();
+
         }
 
 

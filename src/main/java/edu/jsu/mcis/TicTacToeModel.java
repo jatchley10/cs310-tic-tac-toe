@@ -109,19 +109,18 @@ public class TicTacToeModel{
           }
         }
 
-        else{
-          return false;
-        }
+
+        return false;
 
 
     }
 
-    private boolean isValidSquare(int row, int col) {
+    protected boolean isValidSquare(int row, int col) {
 
         /* Return true if specified location is within grid bounds */
 
         /* INSERT YOUR CODE HERE */
-        if(row > 0 && row < width && col > 0 && col < width){
+        if(row >= 0 && row < width && col >= 0 && col < width){
           return true;
         }
         else{
@@ -130,16 +129,11 @@ public class TicTacToeModel{
 
     }
 
-    private boolean isSquareMarked(int row, int col) {
+    protected boolean isSquareMarked(int row, int col) {
 
         /* Return true if square at specified location is marked */
         /* INSERT YOUR CODE HERE */
-        if(getMark(row,col) == Mark.X || getMark(row,col) == Mark.O){
-          return true;
-        }
-        else{
-          return false;
-        }
+        return getMark(row,col) == Mark.X || getMark(row,col) == Mark.O;
 
     }
 
@@ -179,76 +173,81 @@ public class TicTacToeModel{
 
     private boolean isMarkWin(Mark mark) {
 
-        /* Check the squares of the board to see if the specified mark is the
-           winner */
+    /* Check the squares of the board to see if the specified mark is the
+       winner */
 
-        /* INSERT YOUR CODE HERE */
-        boolean won = true;
+    /* INSERT YOUR CODE HERE */
+    //Checking for horizontal winner
+    int consecMarks = 0;
+    for(int i = 0; i < width; ++i){
+        for(int j = 0; j < width; ++j){
+            if(grid[i][j] == mark){
+                consecMarks +=1;
+                if(consecMarks == width){
+                    return true;
+                }
+            }
 
-        // Check for a horizontal winner
-        for(int i = 0 ; i < width; ++i){
-          for(int j = 0; j < width; ++j){
-            if(!getMark(i,j).equals(mark)){
-              won = false;
+            else{
+                consecMarks =0;
+                break;
+            }
+        }
+    }
+
+
+    //Checking for vertical winner
+    consecMarks = 0;
+    for(int i = 0; i < width; ++i){
+        for(int j = 0; j < width; ++j){
+            if(grid[j][i] == mark){
+                consecMarks += 1;
+                if(consecMarks == width){
+                    return true;
+                }
             }
             else{
-              won = true;
-
+              consecMarks = 0;
+                break;
             }
-          }
-
         }
-        if(won == true){
-          return true;
-        }
+    }
 
 
-        // Checking for a Vertical winner
-        won = true;
-        for(int i = 0 ; i < width; ++i){
-          for(int j = 0; j < width; ++j){
-            if(!getMark(j,i).equals(mark)){
-              won = false;
+    // Checking for diagonal winner
+    consecMarks = 0;
+    for(int i = 0; i < width; ++i ){
+        if(grid[i][i] == mark){
+            consecMarks += 1;
+            if(consecMarks == width){
+                return true;
             }
-          }
-
         }
-        if(won == true){
-          return true;
+        else{
+            consecMarks =0;
         }
+    }
 
 
-        //Checking for a Diagonal Winner
-        won = true;
-        for(int i = 0; i < width; ++i){
-          if(!getMark(i,i).equals(mark)){
-            won = false;
-          }
-        }
-        if(won == true){
-          return true;
-        }
-
-        // Check for the other diagonal winner
-        won = true;
-        for(int i =0; i < width; ++i){
-          for(int j = 0; j < width; ++j){
-            if(!grid[width-1-i][j].equals(mark)){
-              won = false;
+    //Checking for the other diagonal winner
+    consecMarks = 0;
+    for(int i = 0; i < width; ++i){
+        if(grid[i][width - 1 - i] == mark){
+            consecMarks += 1;
+            if(consecMarks == width){
+                return true;
             }
-          }
-
         }
-
-        if(won == true){
-          return true;
+        else{
+            consecMarks =0;
         }
-
-        return false;
-
-
 
     }
+
+    return false;
+
+
+}
 
     private boolean isTie() {
 
