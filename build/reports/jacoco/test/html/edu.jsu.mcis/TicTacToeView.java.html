@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TicTacToeView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">cs310-tic-tac-toe</a> &gt; <a href="index.source.html" class="el_package">edu.jsu.mcis</a> &gt; <span class="el_source">TicTacToeView.java</span></div><h1>TicTacToeView.java</h1><pre class="source lang-java linenums">package edu.jsu.mcis;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+public class TicTacToeView extends JPanel implements ActionListener{
+
+    private TicTacToeModel model;
+    private JButton[][] squares;
+    private JPanel squaresPanel;
+    private JLabel resultLabel;
+    int width;
+
+
+    /* CONSTRUCTOR */
+
+<span class="fc" id="L17">    public TicTacToeView(TicTacToeModel model) {</span>
+
+<span class="fc" id="L19">        this.model = model;</span>
+<span class="fc" id="L20">        width = model.getWidth();</span>
+<span class="fc" id="L21">        setLayout(new GridLayout(width +1 , width+1));</span>
+<span class="fc" id="L22">        squares = new JButton[width][width];</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        for(int i = 0; i &lt; width; ++i){</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">            for(int j = 0 ; j &lt; width; ++j){</span>
+<span class="fc" id="L25">                squares[i][j] = new JButton();</span>
+<span class="fc" id="L26">                squares[i][j].addActionListener(this);</span>
+<span class="fc" id="L27">                squares[i][j].setName(&quot;Square&quot; + i + j);</span>
+<span class="fc" id="L28">                squares[i][j].setPreferredSize(new Dimension(64,64));</span>
+<span class="fc" id="L29">                add(squares[i][j]);</span>
+            }
+        }
+<span class="fc" id="L32">        resultLabel = new JLabel();</span>
+<span class="fc" id="L33">        resultLabel.setName(&quot;ResultLabel&quot;);</span>
+<span class="fc" id="L34">        add(resultLabel);</span>
+<span class="fc" id="L35">        JPanel squaresPanel = new JPanel(new GridLayout(width,width));</span>
+<span class="fc" id="L36">        add(squaresPanel);</span>
+<span class="fc" id="L37">    }</span>
+
+    public void viewModel() {
+
+        /* Print the board to the console (see examples) */
+
+        /* INSERT YOUR CODE HERE */
+        // Printing the Column headings
+<span class="fc" id="L45">        System.out.print(&quot;  &quot;);</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        for(int a = 0; a &lt; model.getWidth(); ++a){</span>
+<span class="fc" id="L47">          System.out.print(a);</span>
+        }
+<span class="fc" id="L49">        System.out.print(&quot;    &quot;);</span>
+<span class="fc" id="L50">        System.out.println(&quot;\n&quot;);</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        for(int i = 0; i &lt; model.getWidth(); ++i){</span>
+<span class="fc" id="L52">          System.out.print(i + &quot; &quot;);</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">          for(int j = 0; j &lt; model.getWidth(); ++j){</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">              if(model.getMark(i, j) == TicTacToeModel.Mark.EMPTY){</span>
+<span class="fc" id="L55">                  System.out.print(&quot;-&quot;);</span>
+              }
+              else{
+<span class="nc" id="L58">                  System.out.print(model.getMark(i, j));</span>
+              }
+
+
+
+
+
+
+          }
+<span class="fc" id="L67">        System.out.println();</span>
+
+        }
+
+
+
+<span class="fc" id="L73">    }</span>
+
+    public void showNextMovePrompt() {
+
+        /* Display a prompt for the player's next move (see examples) */
+
+
+
+        /* INSERT YOUR CODE HERE */
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        if(model.isXTurn()){</span>
+<span class="nc" id="L83">          System.out.println(&quot;Player 1 (X) Move:&quot;);</span>
+<span class="nc" id="L84">          System.out.println(&quot;Enter the row and column numbers, separated by a space: &quot;);</span>
+        }
+        else{
+<span class="nc" id="L87">          System.out.println(&quot;Player 2 (O) Move:&quot;);</span>
+<span class="nc" id="L88">          System.out.println(&quot;Enter the row and column numbers, separated by a space: &quot;);</span>
+        }
+
+<span class="nc" id="L91">    }</span>
+
+    public void showInputError() {
+
+        /* Display an error if input is invalid (see examples) */
+
+        /* INSERT YOUR CODE HERE */
+<span class="nc" id="L98">        System.out.println(&quot;ERROR! Invalid Input&quot;);</span>
+
+<span class="nc" id="L100">    }</span>
+
+    public void showResult(String r) {
+
+        /* Display final winner */
+
+<span class="nc" id="L106">        System.out.println(r + &quot;!&quot;);</span>
+
+<span class="nc" id="L108">    }</span>
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+
+<span class="nc" id="L114">        JButton pressed = (JButton)e.getSource();</span>
+
+<span class="nc" id="L116">        int row = (int) (pressed.getName().charAt(6)) - 48;</span>
+<span class="nc" id="L117">        int col = (int) (pressed.getName().charAt(7)) - 48;</span>
+
+        //Only changes the squares if the game is still ongoing
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if(!model.isGameover()){</span>
+<span class="nc" id="L121">        model.makeMark(row, col);</span>
+<span class="nc" id="L122">        pressed.setText(model.getMark(row, col).toString());</span>
+
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        if(model.isMarkWin(model.getMark(row, col))){</span>
+<span class="nc" id="L125">            resultLabel.setText(model.getResult().toString().toUpperCase());</span>
+        }
+
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        if(model.isTie()){</span>
+<span class="nc" id="L129">            resultLabel.setText(model.getResult().toString().toUpperCase());</span>
+        }
+
+
+        }
+<span class="nc" id="L134">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

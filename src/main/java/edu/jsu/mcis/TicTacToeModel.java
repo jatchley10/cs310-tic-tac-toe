@@ -60,6 +60,7 @@ public class TicTacToeModel{
 
         this(DEFAULT_WIDTH);
 
+
     }
 
     /* CONSTRUCTOR */
@@ -171,7 +172,7 @@ public class TicTacToeModel{
 
     }
 
-    private boolean isMarkWin(Mark mark) {
+    protected boolean isMarkWin(Mark mark) {
 
     /* Check the squares of the board to see if the specified mark is the
        winner */
@@ -249,7 +250,7 @@ public class TicTacToeModel{
 
 }
 
-    private boolean isTie() {
+    protected boolean isTie() {
 
         /* Check the squares of the board to see if the game is a tie */
 
